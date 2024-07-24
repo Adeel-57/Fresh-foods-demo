@@ -1,0 +1,41 @@
+.catg{
+    width: 100vw;
+    padding: 20px;
+}
+.catg-content{
+    max-width: 1200px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    overflow-x: auto;
+}
+.category{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    /* transform: all 400ms ease-in-out; */
+}
+.catg-content::-webkit-scrollbar{
+    display: none;
+}
+.category img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.active{
+    color: chocolate;
+    img{
+        padding: 4px;
+        border: 2px solid chocolate;
+    }
+}
+
+@media (max-width:900px){
+    .catg-content{
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,49 @@
+.cart{
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Search{
+    display: flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+}
+.Search_input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0 7px;
+}
+.Search_icon{
+    margin-right: 3px;
+    transition: all 0.5s ease-in-out;
+}
+.Search:focus-within{
+    width: 150px;
+    .Search_input{
+        opacity: 1;
+        width: 100%;
+        cursor: initial;
+        position: relative;
+    }
+    .Search_icon{
+        align-self: flex-end;
+        margin-left: auto;
+        display: none;
+    }
+}

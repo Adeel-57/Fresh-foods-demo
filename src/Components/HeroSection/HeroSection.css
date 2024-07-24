@@ -1,0 +1,27 @@
+.hero-section{
+    width: 100vw;
+    height: 70vh;
+    padding: 0 20px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+.hero-content{
+    max-width: 1200px;
+    height: 100%;
+    border-radius: 40px;
+    margin-inline: auto;
+    position: relative;
+    background-image: url('../../assets/images/Hero-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hero-content .hero-info{
+    position: absolute;
+    left: 5%;
+    bottom: 20%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
