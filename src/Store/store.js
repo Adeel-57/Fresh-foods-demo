@@ -1,13 +1,15 @@
-import { combineReducers, createStore } from "redux";
-import products from "./slices/productsSlice";
+import { combineReducers } from "redux";
+import productsReducer from "./slices/productsSlice";
 import cartReducer from "./slices/cartSlice";
-import wishList from "./slices/wishListSlice";
+import wishListReduder from "./slices/wishListSlice";
+import ordersReducer from './slices/myOrdersSlics'
 import Apicall from "./Apicall";
+import { configureStore } from "@reduxjs/toolkit";
 const reducer = combineReducers({
-    products: products,
+    products: productsReducer,
     cartItems: cartReducer,
-    wishList: wishList,
-    // middleware:[Apicall]
+    wishList: wishListReduder,
+    orders: ordersReducer,
 })
 
-export const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.())
+export const store = configureStore({reducer,middleware:()=>[Apicall]})

@@ -50,7 +50,7 @@
   margin-top: 10px;
 }
 
-.popup p {
+.popup > p {
   text-align: center;
   font-size: 12px;
 }
@@ -71,7 +71,7 @@
 }
 
 .open {
-  display: block;
+  display: flex;
   position: absolute;
   inset: 0;
 }

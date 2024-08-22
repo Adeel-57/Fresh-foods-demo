@@ -92,7 +92,7 @@ td {
     position: relative;
 }
 
-.container label {
+.lable{
     display: inline-block;
     margin-bottom: 5px;
     font-weight: bolder;
@@ -105,7 +105,7 @@ td {
     border-radius: 5px;
 }
 
-.container p {
+.container .err {
     margin-top: 65px;
     margin-right: 2px;
     color: red;

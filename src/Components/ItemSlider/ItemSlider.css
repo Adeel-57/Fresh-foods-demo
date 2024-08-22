@@ -4,6 +4,7 @@
 }
 .slider-content{
     max-width: 400px;
+    max-height: 250px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
@@ -21,4 +22,5 @@
 }
 .slider-content img{
     width: 100%;
+    object-fit: cover;
 }

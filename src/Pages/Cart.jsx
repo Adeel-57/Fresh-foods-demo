@@ -6,17 +6,23 @@ import decreaseQuantity from '../assets/remove_icon_red.png'
 import { DecreaseQuantity, IncreaseQuantity, RemoveToCart } from '../Store/slices/cartSlice'
 import { useOutletContext } from 'react-router-dom'
 import Input from '../Components/CustomInputs/Input'
-import useLocalStorage from '../Hooks/LocalStorage'
+import { placeOrder } from '../Store/slices/myOrdersSlics'
 
 const Cart = () => {
+  const cart = useSelector(state => state.cartItems)
+  const foodItems = useSelector(state => state.products)
+  const dispatch = useDispatch()
+  const qeuery = useOutletContext()
   const [Value, SetValue] = useState({
     name: '',
     email: '',
+    address: '',
   })
   const [Error, SetError] = useState('')
   const validation = {
     name: [{ required: true, errMsg: 'Please enter your name' }],
-    email: [{ required: true, errMsg: 'Please enter your email' }]
+    email: [{ required: true, errMsg: 'Please enter your email' }],
+    address: [{ required: true, errMsg: 'Please enter your address' }]
   }
   function Validate(e) {
     const err = {}
@@ -38,6 +44,12 @@ const Cart = () => {
       return
     } else {
       console.log('congratulations')
+      dispatch(placeOrder(cart))
+      SetValue({
+        name: '',
+        email: '',
+        address:'',
+      })
     }
   }
   function onChange(e) {
@@ -45,37 +57,19 @@ const Cart = () => {
     // SetValue({ ...Value, [name]: value })
     SetValue(pre => ({ ...pre, [name]: value }))
   }
-  // const cartItems = useSelector(state => state.cartItems)
-  const foodItems = useSelector(state => state.products)
-  const [cart, updateCart] = useLocalStorage('Fresh-food-cart', [])
-  const dispatch = useDispatch()
-  const qeuery = useOutletContext()
   function subTotal() {
     let subTotal = 0;
     cart.map((item) => { subTotal += item.quantity * item.price })
     return subTotal;
   }
   function Increasequantity(e) {
-    // dispatch(IncreaseQuantity(foodItems.find((item) => item._id === e.target.id)))
-    let existing = cart.findIndex((item) => item._id === e.target.id);
-    cart[existing].quantity += 1; 
-    updateCart(pre=>[...pre])
-    
+    dispatch(IncreaseQuantity(foodItems.find((item) => item._id === e.target.id)))
   }
   function Decreasequantity(e) {
-    // dispatch(DecreaseQuantity(foodItems.find((item) => item._id === e.target.id)))
-    let existing = cart.findIndex((item) => item._id === e.target.id);
-    cart[existing].quantity -= 1; 
-    if(cart[existing].quantity===0){
-    cart.splice(existing, 1)
-    }
-    updateCart(pre=>[...pre])
+    dispatch(DecreaseQuantity(foodItems.find((item) => item._id === e.target.id)))
   }
   const removeToCart = (e) => {
-    // dispatch(RemoveToCart(foodItems.find((item) => item._id === e.target.id)))
-    let existing = cart.findIndex((item) => item._id === e.target.id)
-    cart.splice(existing, 1)
-    updateCart(pre => [...pre])
+    dispatch(RemoveToCart(foodItems.find((item) => item._id === e.target.id)))
   }
 
   return (
@@ -122,25 +116,28 @@ const Cart = () => {
         </table>
         <div className="info">
           <div className="totals">
-            <div className='container'>
-              <label htmlFor='cart-subtotal'>Subtotal</label>
+            <div>
+              <p className='lable'>Subtotal</p>
               <div className="totals-value" id="cart-subtotal">{subTotal()}</div>
             </div>
-            <div className='container'>
-              <label htmlFor='cart-sgipping'>Shipping</label>
-              <div className="totals-value" id="cart-shipping">15.00</div>
+            <div>
+              <p className='lable'>Shipping cost</p>
+              <div className="totals-value" id="cart-shipping">{subTotal()?15.00:0}</div>
             </div>
-            <div className='container'>
-              <label htmlFor='cart-total'>Grand Total</label>
-              <div className="totals-value" id="cart-total">{subTotal() + 15.00}</div>
+            <div>
+              <p  className='lable'>Grand Total</p>
+              <div className="totals-value" id="cart-total">{subTotal()?subTotal() + 15.00:0}</div>
             </div>
           </div>
           <form className="form" onSubmit={onsubmit}>
             <div className='container'>
-              <Input lable='Enter your name' id='name' type='text' value={Value.name} onChange={onChange} err={Error.name} />
+              <Input lable='Enter your name' name='name' type='text' value={Value.name} onChange={onChange} err={Error.name} />
             </div>
             <div className='container'>
-              <Input lable='Enter your email' id='email' type='text' value={Value.email} onChange={onChange} err={Error.email} />
+              <Input lable='Enter your email' name='email' type='text' value={Value.email} onChange={onChange} err={Error.email} />
+            </div>
+            <div className='container'>
+              <Input lable='Enter your complete address' name='address' type='text' value={Value.address} onChange={onChange} err={Error.address} />
             </div>
             <button className="checkout">Checkout</button>
           </form>

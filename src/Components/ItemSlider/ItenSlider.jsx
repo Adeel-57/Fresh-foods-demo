@@ -3,14 +3,15 @@ import { hero } from '../../assets/assets'
 import './ItemSlider.css'
 
 const ItenSlider = () => {
+    const item = ['https://images.pexels.com/photos/1126373/pexels-photo-1126373.jpeg?auto=compress&cs=tinysrgb&w=600','https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg?auto=compress&cs=tinysrgb&w=600'] 
     const [index, setIndex] = useState(0)
-    const [timer, setTimer] = useState()
     useEffect(function () {
-        clearTimeout(timer)
         let timerID = setTimeout(() => {
             nextIndex()
         }, 3000)
-        setTimer(timerID)
+        return ()=>{
+            clearTimeout(timerID)
+        }
     }, [index])
     function nextIndex() {
         if (index < hero.length - 1) { setIndex(pre => pre + 1) }
